@@ -62,11 +62,22 @@ def inversa_matriz(a):
 def transpuesta_matriz(a):
     return np.transpose(a), None
 
+def traza_matriz(a):
+    if a.shape[0] != a.shape[1]:
+        return None, "La matriz debe ser cuadrada"
+    return np.trace(a), None
+
+def escalar_matriz(a, esc):
+    return a * esc, None
+
 # Menú lateral y operación
 st.sidebar.title("⚙️ Opciones")
 operacion = st.sidebar.selectbox(
     "Selecciona la operación:",
-    ["Suma", "Resta", "Multiplicación", "Determinante", "Inversa", "Transpuesta"]
+    [
+        "Suma", "Resta", "Multiplicación", "Determinante", "Inversa",
+        "Transpuesta", "Traza", "Escalar"
+    ]
 )
 
 st.write("## Entrada de Datos")
@@ -79,6 +90,10 @@ if operacion in ["Suma", "Resta", "Multiplicación"]:
         matriz_b = crear_matriz("B")
 else:
     matriz_a = crear_matriz("A")
+
+# Si la operación es escalar, pedir el número escalar antes de presionar el botón
+if operacion == "Escalar":
+    escalar = st.number_input("Número escalar por el que multiplicar la matriz A", value=1.0)
 
 if st.button("Calcular", type="primary"):
     try:
@@ -94,7 +109,13 @@ if st.button("Calcular", type="primary"):
             resultado, error = inversa_matriz(matriz_a)
         elif operacion == "Transpuesta":
             resultado, error = transpuesta_matriz(matriz_a)
-        
+        elif operacion == "Traza":
+            resultado, error = traza_matriz(matriz_a)
+        elif operacion == "Escalar":
+            resultado, error = escalar_matriz(matriz_a, escalar)
+        else:
+            resultado, error = None, "Operación no soportada"
+
         if error:
             st.error(f"❌ {error}")
         else:
