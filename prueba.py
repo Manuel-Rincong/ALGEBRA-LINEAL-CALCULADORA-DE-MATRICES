@@ -1,3 +1,6 @@
+#IMPORTANTE#
+#Instalar las librerias, escribir en la terminal "pip install streamlit"
+#Para ejecutar el codigo escribir en la terminal "streamlit run prueba.py"
 import streamlit as st
 import numpy as np
 
