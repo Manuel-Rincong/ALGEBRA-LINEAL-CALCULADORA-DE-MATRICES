@@ -2,9 +2,9 @@ import streamlit as st
 import numpy as np
 
 # Configuración básica de la página
-st.set_page_config(page_title="Calculadora de Matrices", page_icon="🔢", layout="wide")
+st.set_page_config(page_title="Calculadora de Matrices", page_icon="", layout="wide")
 
-st.title("🔢 Calculadora de Matrices")
+st.title(" Calculadora de Matrices")
 st.markdown("### Realiza operaciones con matrices fácilmente")
 st.write("---")
 
@@ -119,19 +119,19 @@ if st.button("Calcular", type="primary"):
         if error:
             st.error(f"❌ {error}")
         else:
-            st.success("✅ Operación realizada correctamente")
+            st.success(" Operación realizada correctamente")
             st.write("### Resultado:")
             st.write(resultado)
     except Exception as e:
-        st.error(f"❌ Error inesperado: {str(e)}")
+        st.error(f" Error inesperado: {str(e)}")
 
 st.write("---")
-st.info("💡 Usa la barra lateral para cambiar de operación. Ingresa los valores y presiona 'Calcular'.")
+st.info(" Usa la barra lateral para cambiar de operación. Ingresa los valores y presiona 'Calcular'.")
 
 st.markdown(
     "<div style='text-align: center; color: gray;'>"
     "<strong>Calculadora de Matrices</strong><br>"
     "Desarrollado por estudiantes.<br>"
-    "Tecnologías: Python 🐍 | Streamlit 🎈 | NumPy 🔢"
+    "Tecnologías: Python  | Streamlit  | NumPy "
     "</div>", unsafe_allow_html=True
 )
