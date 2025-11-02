@@ -1,7 +1,5 @@
-# IMPORTANTE
-# Instalar la librería: pip install streamlit
-# Ejecutar: streamlit run calculadora_matrices.py
-
+##Instalar las librerias, escribir en la terminal "pip install streamlit"
+#Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/prueba3.py"
 import streamlit as st
 
 # ==================== FUNCIONES AUXILIARES ====================
@@ -59,7 +57,7 @@ def determinante(matriz):
             for j in range(i, n):
                 m[k][j] = m[k][j] - factor * m[i][j]
     
-    return round(det, 1)
+    return int(round(det))
 
 def matriz_inversa(matriz):
     """Calcula la matriz inversa usando el método de Gauss-Jordan"""
@@ -107,7 +105,7 @@ def matriz_inversa(matriz):
     inversa = crear_matriz(n, n)
     for i in range(n):
         for j in range(n):
-            inversa[i][j] = round(aumentada[i][j + n], 1)
+            inversa[i][j] = int(round(aumentada[i][j + n]))
     
     return inversa
 
@@ -129,7 +127,7 @@ def traza(matriz):
     suma = 0.0
     for i in range(n):
         suma = suma + matriz[i][i]
-    return round(suma, 1)
+    return int(round(suma))
 
 # ==================== OPERACIONES CON DOS MATRICES ====================
 
@@ -141,7 +139,7 @@ def sumar_matrices(A, B):
     
     for i in range(filas):
         for j in range(columnas):
-            resultado[i][j] = round(A[i][j] + B[i][j], 1)
+            resultado[i][j] = int(round(A[i][j] + B[i][j]))
     
     return resultado
 
@@ -153,7 +151,7 @@ def restar_matrices(A, B):
     
     for i in range(filas):
         for j in range(columnas):
-            resultado[i][j] = round(A[i][j] - B[i][j], 1)
+            resultado[i][j] = int(round(A[i][j] - B[i][j]))
     
     return resultado
 
@@ -169,7 +167,7 @@ def multiplicar_matrices(A, B):
             suma = 0.0
             for k in range(columnas_A):
                 suma = suma + A[i][k] * B[k][j]
-            resultado[i][j] = round(suma, 1)
+            resultado[i][j] = int(round(suma))
     
     return resultado
 
@@ -223,6 +221,7 @@ for i in range(filasX):
             st.session_state.matrizX[i][j] = st.number_input(
                 f"X[{i},{j}]",
                 value=float(st.session_state.matrizX[i][j]),
+                step=1.0,
                 key=f"X_{i}_{j}",
                 label_visibility="collapsed"
             )
@@ -301,6 +300,7 @@ for i in range(filasA):
             st.session_state.matrizA[i][j] = st.number_input(
                 f"A[{i},{j}]",
                 value=float(st.session_state.matrizA[i][j]),
+                step=1.0,
                 key=f"A_{i}_{j}",
                 label_visibility="collapsed"
             )
@@ -328,6 +328,7 @@ for i in range(filasB):
             st.session_state.matrizB[i][j] = st.number_input(
                 f"B[{i},{j}]",
                 value=float(st.session_state.matrizB[i][j]),
+                step=1.0,
                 key=f"B_{i}_{j}",
                 label_visibility="collapsed"
             )
