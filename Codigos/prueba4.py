@@ -1,11 +1,13 @@
 ##Instalar las librerias, escribir en la terminal "pip install streamlit"
-#Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/prueba3.py"
+#Para ejecutar el codigo escribir en la terminal "streamlit run Codigos/prueba4.py"
+
 import streamlit as st
 
-# ==================== FUNCIONES AUXILIARES ====================
+#Funciones 
+#----------------------------- Funciones Para Crear Las Matrices -----------------------------
 
+#Funcion Para Crear Una Matriz Con Listas
 def crear_matriz(filas, columnas, valor=0.0):
-    """Crea una matriz de filas x columnas con un valor inicial"""
     matriz = []
     for i in range(filas):
         fila = []
@@ -14,8 +16,8 @@ def crear_matriz(filas, columnas, valor=0.0):
         matriz.append(fila)
     return matriz
 
+#Funcion Para Crear Una Copia De La Matriz 
 def copiar_matriz(matriz):
-    """Crea una copia profunda de una matriz"""
     filas = len(matriz)
     columnas = len(matriz[0])
     copia = crear_matriz(filas, columnas)
@@ -24,12 +26,11 @@ def copiar_matriz(matriz):
             copia[i][j] = matriz[i][j]
     return copia
 
-# ==================== OPERACIONES CON UNA MATRIZ ====================
+#----------------------------- Funciones Para Calcular Operaciones Con Una Matriz -----------------------------
 
+#Funcion Para Calcular El Determinante De Una Matriz
 def determinante(matriz):
-    """Calcula el determinante de una matriz usando eliminación gaussiana"""
     n = len(matriz)
-    # Crear copia para no modificar la original
     m = copiar_matriz(matriz)
     det = 1.0
     
@@ -57,10 +58,10 @@ def determinante(matriz):
             for j in range(i, n):
                 m[k][j] = m[k][j] - factor * m[i][j]
     
-    return int(round(det))
+    return det
 
+#Funcion Para Calcular La Inversa De Una Matriz
 def matriz_inversa(matriz):
-    """Calcula la matriz inversa usando el método de Gauss-Jordan"""
     n = len(matriz)
     # Crear matriz aumentada [A|I]
     aumentada = []
@@ -105,93 +106,85 @@ def matriz_inversa(matriz):
     inversa = crear_matriz(n, n)
     for i in range(n):
         for j in range(n):
-            inversa[i][j] = int(round(aumentada[i][j + n]))
+            inversa[i][j] = aumentada[i][j + n]
     
     return inversa
 
+#Funcion Para Calcular La Transpuesta De Una Matriz 
 def transpuesta(matriz):
-    """Calcula la transpuesta de una matriz"""
     filas = len(matriz)
     columnas = len(matriz[0])
     trans = crear_matriz(columnas, filas)
-    
     for i in range(filas):
         for j in range(columnas):
             trans[j][i] = matriz[i][j]
-    
     return trans
 
+#Funcion Para Calcular La Traza De Una Matriz
 def traza(matriz):
-    """Calcula la traza de una matriz cuadrada"""
     n = len(matriz)
     suma = 0.0
     for i in range(n):
         suma = suma + matriz[i][i]
-    return int(round(suma))
+    return suma
 
-# ==================== OPERACIONES CON DOS MATRICES ====================
+#----------------------------- Funciones Para Calcular Operaciones Con Dos Matrices -----------------------------
 
+#Funcion Para Calcular La Suma De Matrices
 def sumar_matrices(A, B):
-    """Suma dos matrices"""
     filas = len(A)
     columnas = len(A[0])
     resultado = crear_matriz(filas, columnas)
-    
     for i in range(filas):
         for j in range(columnas):
-            resultado[i][j] = int(round(A[i][j] + B[i][j]))
-    
+            resultado[i][j] = A[i][j] + B[i][j]
     return resultado
 
+#Funcion Para Calcular La Resta De Matrices
 def restar_matrices(A, B):
-    """Resta dos matrices"""
     filas = len(A)
     columnas = len(A[0])
     resultado = crear_matriz(filas, columnas)
-    
     for i in range(filas):
         for j in range(columnas):
-            resultado[i][j] = int(round(A[i][j] - B[i][j]))
-    
+            resultado[i][j] = A[i][j] - B[i][j]
     return resultado
 
+#Funcion Para Calcular La Multiplicacion De Matrices
 def multiplicar_matrices(A, B):
-    """Multiplica dos matrices"""
     filas_A = len(A)
     columnas_A = len(A[0])
     columnas_B = len(B[0])
     resultado = crear_matriz(filas_A, columnas_B)
-    
     for i in range(filas_A):
         for j in range(columnas_B):
             suma = 0.0
             for k in range(columnas_A):
                 suma = suma + A[i][k] * B[k][j]
-            resultado[i][j] = int(round(suma))
-    
+            resultado[i][j] = suma
     return resultado
 
-# ==================== FUNCIONES DE VISUALIZACIÓN ====================
+#----------------------------- Funcion Para La Visualizacion De La Matriz -----------------------------
 
+#Convierte La Matriz A Tabla HTML Para Mostrar En Streamlit
 def matriz_a_tabla_html(matriz):
-    """Convierte una matriz a tabla HTML para mostrar en Streamlit"""
     html = "<table style='border-collapse: collapse; margin: 10px auto;'>"
     for fila in matriz:
         html += "<tr>"
         for valor in fila:
-            html += f"<td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>{valor}</td>"
+            html += f"<td style='border: 1px solid #ddd; padding: 8px; text-align: center;'>{valor:.2f}</td>"
         html += "</tr>"
     html += "</table>"
     return html
 
-# ==================== CONFIGURACIÓN DE STREAMLIT ====================
+#----------------------------- Configuracion De Streamlit -----------------------------
 
 st.set_page_config(page_title="Calculadora de Matrices", page_icon="🧮", layout="centered")
 
 st.title("🧮 Calculadora de Matrices")
 st.markdown("---")
 
-# ==================== SECCIÓN 1: OPERACIONES CON UNA MATRIZ ====================
+#----------------------------- Seccion 1 De La Interfaz Web -----------------------------
 
 st.title("1. Operaciones Con Una Matriz")
 st.markdown("---")
@@ -270,7 +263,7 @@ if resultadoX is not None:
         st.markdown("**Resultado:**")
         st.markdown(matriz_a_tabla_html(resultadoX), unsafe_allow_html=True)
 
-# ==================== SECCIÓN 2: OPERACIONES CON DOS MATRICES ====================
+#----------------------------- Seccion 2 De La Interfaz Web -----------------------------
 
 st.markdown("---")
 st.title("2. Operaciones Entre 2 Matrices")
